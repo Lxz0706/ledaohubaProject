@@ -40,9 +40,9 @@ function createMenuItem(dataUrl, menuName) {
                 $(this).addClass('active').siblings('.menuTab').removeClass('active');
                 $('.page-tabs-content').animate({ marginLeft: ""}, "fast");
                 // 显示tab对应的内容区
-                $('.mainContent .RuoYi_iframe', topWindow).each(function() {
+                $('.mainContent .LeDao_iframe', topWindow).each(function() {
                     if ($(this).data('id') == dataUrl) {
-                        $(this).show().siblings('.RuoYi_iframe').hide();
+                        $(this).show().siblings('.LeDao_iframe').hide();
                         return false;
                     }
                 });
@@ -57,8 +57,8 @@ function createMenuItem(dataUrl, menuName) {
         $('.menuTab', topWindow).removeClass('active');
 
         // 添加选项卡对应的iframe
-        var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
-        $('.mainContent', topWindow).find('iframe.RuoYi_iframe').hide().parents('.mainContent').append(str1);
+        var str1 = '<iframe class="LeDao_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+        $('.mainContent', topWindow).find('iframe.LeDao_iframe').hide().parents('.mainContent').append(str1);
 
         // 添加选项卡
         $('.menuTabs .page-tabs-content', topWindow).append(str);
