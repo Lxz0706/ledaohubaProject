@@ -1,6 +1,7 @@
 package com.ledao.project.system.role.controller;
 
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,12 @@ import com.ledao.project.system.role.service.IRoleService;
 
 /**
  * 角色信息
- * 
+ *
  * @author lxz
  */
 @Controller
 @RequestMapping("/system/role")
-public class RoleController extends BaseController
-{
+public class RoleController extends BaseController {
 
     private String prefix = "system/role";
 
@@ -38,16 +38,14 @@ public class RoleController extends BaseController
 
     @RequiresPermissions("system:role:view")
     @GetMapping()
-    public String role()
-    {
+    public String role() {
         return prefix + "/role";
     }
 
     @RequiresPermissions("system:role:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Role role)
-    {
+    public TableDataInfo list(Role role) {
         startPage();
         List<Role> list = roleService.selectRoleList(role);
         return getDataTable(list);
@@ -57,16 +55,12 @@ public class RoleController extends BaseController
     @RequiresPermissions("system:role:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(Role role) throws Exception
-    {
-        try
-        {
+    public AjaxResult export(Role role) throws Exception {
+        try {
             List<Role> list = roleService.selectRoleList(role);
             ExcelUtil<Role> util = new ExcelUtil<Role>(Role.class);
             return util.exportExcel(list, "role");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return error("导出Excel失败，请联系网站管理员！");
         }
     }
@@ -75,8 +69,7 @@ public class RoleController extends BaseController
      * 新增角色
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -88,8 +81,7 @@ public class RoleController extends BaseController
     @PostMapping("/add")
     @Transactional(rollbackFor = Exception.class)
     @ResponseBody
-    public AjaxResult addSave(Role role)
-    {
+    public AjaxResult addSave(Role role) {
         return toAjax(roleService.insertRole(role));
 
     }
@@ -98,8 +90,7 @@ public class RoleController extends BaseController
      * 修改角色
      */
     @GetMapping("/edit/{roleId}")
-    public String edit(@PathVariable("roleId") Long roleId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("roleId") Long roleId, ModelMap mmap) {
         mmap.put("role", roleService.selectRoleById(roleId));
         return prefix + "/edit";
     }
@@ -112,8 +103,7 @@ public class RoleController extends BaseController
     @PostMapping("/edit")
     @Transactional(rollbackFor = Exception.class)
     @ResponseBody
-    public AjaxResult editSave(Role role)
-    {
+    public AjaxResult editSave(Role role) {
         return toAjax(roleService.updateRole(role));
     }
 
@@ -121,14 +111,10 @@ public class RoleController extends BaseController
     @Log(title = "角色管理", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
-        try
-        {
+    public AjaxResult remove(String ids) {
+        try {
             return toAjax(roleService.deleteRoleByIds(ids));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return error(e.getMessage());
         }
     }
@@ -138,26 +124,22 @@ public class RoleController extends BaseController
      */
     @PostMapping("/checkRoleNameUnique")
     @ResponseBody
-    public String checkRoleNameUnique(Role role)
-    {
+    public String checkRoleNameUnique(Role role) {
         String uniqueFlag = "0";
-        if (StringUtils.isNotNull(role))
-        {
+        if (StringUtils.isNotNull(role)) {
             uniqueFlag = roleService.checkRoleNameUnique(role);
         }
         return uniqueFlag;
     }
-    
+
     /**
      * 校验角色权限
      */
     @PostMapping("/checkRoleKeyUnique")
     @ResponseBody
-    public String checkRoleKeyUnique(Role role)
-    {
+    public String checkRoleKeyUnique(Role role) {
         String uniqueFlag = "0";
-        if (StringUtils.isNotNull(role))
-        {
+        if (StringUtils.isNotNull(role)) {
             uniqueFlag = roleService.checkRoleKeyUnique(role);
         }
         return uniqueFlag;
@@ -167,8 +149,7 @@ public class RoleController extends BaseController
      * 选择菜单树
      */
     @GetMapping("/selectMenuTree")
-    public String selectMenuTree()
-    {
+    public String selectMenuTree() {
         return prefix + "/tree";
     }
 

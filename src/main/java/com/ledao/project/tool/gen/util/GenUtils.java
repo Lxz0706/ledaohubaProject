@@ -19,7 +19,7 @@ import com.ledao.project.tool.gen.domain.TableInfo;
 public class GenUtils
 {
     /** 项目空间路径 */
-    private static final String PROJECT_PATH = "main/java/com/ruoyi/project";
+    private static final String PROJECT_PATH = "main/java/com/ledao/project";
 
     /** mybatis空间路径 */
     private static final String MYBATIS_PATH = "main/resources/mybatis";
